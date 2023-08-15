@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ModalWindow } from '../Modal/Modal';
 
+import css from './ImageGalleryItem.module.css';
+
 export class ImageGalleryItem extends React.Component {
   state = {
     modalIsOpen: false,
@@ -19,8 +21,13 @@ export class ImageGalleryItem extends React.Component {
     const { modalIsOpen } = this.state;
 
     return (
-      <li className="gallery-item" key={id}>
-        <img src={webformatURL} alt={tags} onClick={this.toogleModal} />
+      <li className={css.imageGalleryItem} key={id}>
+        <img
+          src={webformatURL}
+          alt={tags}
+          onClick={this.toogleModal}
+          className={css.imageGalleryItemImage}
+        />
         {modalIsOpen && (
           <ModalWindow
             isOpen={modalIsOpen}
@@ -33,3 +40,10 @@ export class ImageGalleryItem extends React.Component {
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  id: PropTypes.string,
+  tags: PropTypes.string.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+};

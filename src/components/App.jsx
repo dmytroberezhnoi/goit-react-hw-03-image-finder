@@ -9,6 +9,8 @@ import { Button } from './Button/Button';
 
 import * as ImageService from '../service/image-service';
 
+import css from './App.module.css';
+
 export class App extends React.Component {
   state = {
     query: '',
@@ -90,6 +92,14 @@ export class App extends React.Component {
       <>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery images={this.state.images} />
+        {this.state.isEmpty && (
+          <div className={css.message}>
+            Sorry. There are no images for your request
+          </div>
+        )}
+        {this.state.error && (
+          <div className={css.message}>{this.state.error}</div>
+        )}
         {this.state.isLoading && <Loader />}
         {this.state.isShowButton && <Button onClick={this.handleClickBtn} />}
       </>
