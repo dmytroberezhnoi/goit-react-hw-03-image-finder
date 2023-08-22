@@ -42,7 +42,7 @@ export class ImageGalleryItem extends React.Component {
 }
 
 ImageGalleryItem.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   tags: PropTypes.string.isRequired,
   webformatURL: PropTypes.string.isRequired,
   largeImageURL: PropTypes.string.isRequired,

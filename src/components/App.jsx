@@ -71,8 +71,7 @@ export class App extends React.Component {
       }
       this.setState(prevState => ({
         images: [...prevState.images, ...hits],
-        isShowButton: totalHits >= perPage,
-        // isShowButton: this.setState.page < Math.ceil(totalHits / perPage),
+        isShowButton: this.state.page < Math.ceil(totalHits / perPage),
       }));
     } catch (error) {
       this.setState({ error: error.message });
@@ -91,7 +90,9 @@ export class App extends React.Component {
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery images={this.state.images} />
+        {this.state.images.length > 0 && (
+          <ImageGallery images={this.state.images} />
+        )}
         {this.state.isEmpty && (
           <div className={css.message}>
             Sorry. There are no images for your request
@@ -101,7 +102,9 @@ export class App extends React.Component {
           <div className={css.message}>{this.state.error}</div>
         )}
         {this.state.isLoading && <Loader />}
-        {this.state.isShowButton && <Button onClick={this.handleClickBtn} />}
+        {this.state.isShowButton && !this.state.isLoading && (
+          <Button onClick={this.handleClickBtn} />
+        )}
       </>
     );
   }
